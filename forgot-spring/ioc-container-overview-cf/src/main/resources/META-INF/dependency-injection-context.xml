@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+    <import resource="dependency-lookup-context.xml"/>
+
+<!-- 手动注入方式  -->
+<!--    <bean id="userRepository"-->
+<!--          class="org.geekbang.thinking.in.spring.ioc.overview.domain.UserRepository">-->
+<!--       <property name="userList" >-->
+<!--          <util:list>-->
+<!--             <ref bean="superUser" />-->
+<!--             <ref bean="user" />-->
+<!--          </util:list>-->
+<!--       </property>-->
+<!--    </bean>-->
+
+<!-- 自动注入方式 -->
+    <bean id="userRepository"
+          class="org.geekbang.thinking.in.spring.ioc.overview.domain.UserRepository" autowire="byType">
+    </bean>
+
+</beans>
+
