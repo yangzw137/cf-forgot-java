@@ -11,5 +11,12 @@
 
     <artifactId>cf-jdk</artifactId>
 
+    <dependencies>
+        <!-- spring 依赖  -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

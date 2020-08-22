@@ -1,6 +1,6 @@
 package org.cf.forgot.jdk.generic;
 
-import org.cf.spring.generic.beans.AaClass;
+import org.cf.forgot.jdk.generic.beans.AaClass;
 import org.springframework.core.ResolvableType;
 
 /**

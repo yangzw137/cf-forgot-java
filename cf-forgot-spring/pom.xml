@@ -16,17 +16,10 @@
     </modules>
 
     <properties>
-        <spring.version>5.2.2.RELEASE</spring.version>
     </properties>
 
     <dependencyManagement>
-        <!-- spring 依赖管理 -->
         <dependencies>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>
