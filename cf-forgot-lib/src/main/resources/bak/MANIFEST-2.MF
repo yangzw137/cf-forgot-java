@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Premain-Class: org.cf.forgot.lib.instrument.bci.MyClassFileTransformer
+Premain-Class: org.cf.forgot.lib.instrument.agent.bci.MyClassFileTransformer
 Can-Redefine-Classes: true
 Can-Retransform-Classes: true
 Can-Set-Native-Method-Prefix: true
