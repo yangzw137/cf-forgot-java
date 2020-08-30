@@ -14,13 +14,16 @@
     <modules>
         <module>cf-ioc-container-overview</module>
         <module>cf-spring-bean</module>
+        <module>cf-dependency-lookup</module>
     </modules>
 
     <properties>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-        </dependencies>
-    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+    </dependencies>
 </project>

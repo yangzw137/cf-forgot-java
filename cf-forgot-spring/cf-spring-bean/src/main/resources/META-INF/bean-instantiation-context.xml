@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="user-create-by-static-method" class="org.geekbang.thinking.in.spring.ioc.overview.domain.User"
+          factory-method="create" />
+
+    <bean id="user-create-by-factory" factory-bean="userFactory" factory-method="createUser"/>
+
+    <bean id="user-create-by-factory-bean" class="org.geekbang.thinking.in.spring.bean.factory.UserFactoryBean" />
+
+    <bean id="userFactory" class="org.geekbang.thinking.in.spring.bean.factory.DefaultUserFactory" />
+</beans>

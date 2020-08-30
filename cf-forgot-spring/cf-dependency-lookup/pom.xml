@@ -9,8 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cf-ioc-container-overview</artifactId>
+    <artifactId>cf-dependency-lookup</artifactId>
 
-    <dependencies>
-    </dependencies>
+
 </project>
