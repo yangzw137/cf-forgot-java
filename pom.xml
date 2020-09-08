@@ -12,6 +12,7 @@
         <module>cf-forgot-jdk</module>
         <module>cf-forgot-arithmetic</module>
         <module>cf-forgot-lib</module>
+        <module>cf-forgot-ali-sandbox</module>
     </modules>
 
     <packaging>pom</packaging>

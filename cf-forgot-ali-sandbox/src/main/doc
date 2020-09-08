@@ -1,0 +1,12 @@
+https://github.com/alibaba/jvm-sandbox/wiki/FIRST-MODULE
+
+1、增强类：修复时钟
+com.alibaba.jvm.sandbox.demo.BrokenClockTinkerModule
+
+2、业务类： 时钟
+com.taobao.demo.Clock
+
+3、操作步骤
+3.1、将修复类打包，作为module放置到sandbox用户module目录，即：~/.sandbox-module
+3.2、下载和安装sandbox（下载+解压）
+3.3、进入解压后的： sandbox/bin 目录，执行相关命令

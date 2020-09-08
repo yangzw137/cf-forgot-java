@@ -11,5 +11,11 @@
 
     <artifactId>cf-dependency-lookup</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>org.cf</groupId>
+            <artifactId>cf-ioc-container-overview</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>
