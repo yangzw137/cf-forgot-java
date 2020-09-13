@@ -15,6 +15,7 @@
         <module>cf-ioc-container-overview</module>
         <module>cf-spring-bean</module>
         <module>cf-dependency-lookup</module>
+        <module>cf-dependency-injection</module>
     </modules>
 
     <properties>
