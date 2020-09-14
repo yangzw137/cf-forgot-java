@@ -11,5 +11,11 @@
 
     <artifactId>cf-dependency-injection</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>org.cf</groupId>
+            <artifactId>cf-dependency-lookup</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
