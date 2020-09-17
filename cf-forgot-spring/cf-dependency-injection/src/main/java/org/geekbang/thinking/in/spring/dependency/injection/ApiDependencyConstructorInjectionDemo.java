@@ -1,4 +1,4 @@
-package org.geekbang.thinking.in.spring.depency.injection;
+package org.geekbang.thinking.in.spring.dependency.injection;
 
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;

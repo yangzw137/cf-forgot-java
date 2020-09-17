@@ -1,4 +1,4 @@
-package org.geekbang.thinking.in.spring.depency.injection;
+package org.geekbang.thinking.in.spring.dependency.injection;
 
 import org.geekbang.thinking.in.spring.ioc.overview.domain.User;
 

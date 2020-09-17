@@ -1,4 +1,4 @@
-package org.geekbang.thinking.in.spring.depency.injection;
+package org.geekbang.thinking.in.spring.dependency.injection;
 
 import org.geekbang.thinking.in.spring.ioc.overview.domain.User;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
@@ -11,19 +11,19 @@ import org.springframework.context.annotation.Bean;
  * company: <a href=www.jd.com>www.jd.com</a>
  *
  * @author <a href=mailto:yangzhiwei@jd.com>cf</a>
- * @date 2020/9/13
+ * @date 2020/9/16
  * @since
  */
-public class AnnotationDependencySetterInjectionDemo {
+public class AnnotationDependencyConstructorDemo {
 
     public static void main(String[] args) {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
 
-        XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(applicationContext);
-        String location = "classpath:/META-INF/dependency-lookup-context.xml";
-        xmlBeanDefinitionReader.loadBeanDefinitions(location);
+        applicationContext.register(AnnotationDependencyConstructorDemo.class);
 
-        applicationContext.register(AnnotationDependencySetterInjectionDemo.class);
+        XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(applicationContext);
+        xmlBeanDefinitionReader.loadBeanDefinitions("classpath:/META-INF/dependency-lookup-context.xml");
+
         applicationContext.refresh();
 
         UserHolder userHolder = applicationContext.getBean(UserHolder.class);
@@ -34,8 +34,6 @@ public class AnnotationDependencySetterInjectionDemo {
 
     @Bean
     public UserHolder userHolder(User user) {
-        UserHolder userHolder = new UserHolder();
-        userHolder.setUser(user);
-        return userHolder;
+        return new UserHolder(user);
     }
 }

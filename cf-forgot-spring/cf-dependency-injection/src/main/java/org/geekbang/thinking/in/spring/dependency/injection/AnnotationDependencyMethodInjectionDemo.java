@@ -1,4 +1,4 @@
-package org.geekbang.thinking.in.spring.depency.injection;
+package org.geekbang.thinking.in.spring.dependency.injection;
 
 import org.geekbang.thinking.in.spring.ioc.overview.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +17,19 @@ import javax.annotation.Resource;
  * @date 2020/9/13
  * @since
  */
-public class AnnotationDependencyFieldInjectionDemo {
-    @Autowired
+public class AnnotationDependencyMethodInjectionDemo {
     private UserHolder userHolder1;
-    @Resource
     private UserHolder userHolder2;
+
+    @Autowired
+    private void init1(UserHolder userHolder) {
+        this.userHolder1 = userHolder;
+    }
+
+    @Resource
+    private void init2(UserHolder userHolder) {
+        this.userHolder2 = userHolder;
+    }
 
     public static void main(String[] args) {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
@@ -30,11 +38,11 @@ public class AnnotationDependencyFieldInjectionDemo {
         String location = "classpath:/META-INF/dependency-lookup-context.xml";
         xmlBeanDefinitionReader.loadBeanDefinitions(location);
 
-        applicationContext.register(AnnotationDependencyFieldInjectionDemo.class);
+        applicationContext.register(AnnotationDependencyMethodInjectionDemo.class);
         applicationContext.refresh();
 
-        AnnotationDependencyFieldInjectionDemo demo =
-                applicationContext.getBean(AnnotationDependencyFieldInjectionDemo.class);
+        AnnotationDependencyMethodInjectionDemo demo =
+                applicationContext.getBean(AnnotationDependencyMethodInjectionDemo.class);
         System.out.println("userHolder: " + demo.userHolder1);
         System.out.println("userHolder: " + demo.userHolder2);
         System.out.println(demo.userHolder1 == demo.userHolder2);
