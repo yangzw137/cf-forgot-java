@@ -1,4 +1,4 @@
-package org.geekbang.thinking.in.spring.depency.lookup;
+package org.geekbang.thinking.in.spring.dependency.lookup;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;

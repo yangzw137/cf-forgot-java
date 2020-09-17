@@ -1,4 +1,4 @@
-package org.geekbang.thinking.in.spring.depency.lookup;
+package org.geekbang.thinking.in.spring.dependency.lookup;
 
 import org.geekbang.thinking.in.spring.ioc.overview.domain.User;
 import org.springframework.beans.BeansException;
