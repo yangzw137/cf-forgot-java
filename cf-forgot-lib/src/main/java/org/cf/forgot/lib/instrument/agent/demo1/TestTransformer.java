@@ -3,6 +3,8 @@ package org.cf.forgot.lib.instrument.agent.demo1;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
@@ -13,16 +15,21 @@ import java.security.ProtectionDomain;
  * @date 2020/8/21
  */
 public class TestTransformer implements ClassFileTransformer {
+    private static Logger logger = LoggerFactory.getLogger(TestTransformer.class);
+
     //目标类名称，  .分隔
     private String targetClassName;
     private String targetMethodName;
+    private String mark = "";
 
-    public TestTransformer(String className, String methodName) {
-        System.out.println("TestTransformer constructer ");
+    public TestTransformer(String className, String methodName, final String mark) {
+        System.out.println("TestTransformer constructer");
+        logger.info("TestTransformer constructer");
         this.targetMethodName = methodName;
         this.targetClassName = className;
-        System.out.println("targetClassName: " + this.targetClassName);
-        System.out.println("targetMethodName: " + this.targetMethodName);
+        this.mark = mark;
+        logger.info("targetClassName: {}, targetMethodName: {}, mark: {}",
+                this.targetClassName, this.targetMethodName, this.mark);
     }
 
     /**
@@ -42,43 +49,58 @@ public class TestTransformer implements ClassFileTransformer {
         //判断类名是否为目标类名
         String plainClassName = className.replaceAll("/", ".");
         if (!plainClassName.equals(targetClassName)) {
+//            System.out.println("1 transform targetClassName: " + targetClassName + ", pineClassName: " +
+//            plainClassName);
+//            logger.info("1 transform targetClassName: " + targetClassName + ", pineClassName: " + plainClassName);
             return classfileBuffer;
-        } else {
-            System.out.println("transform className: " + className + ", pineClassName: " + plainClassName);
         }
 
-        //javassist的包名是用点分割的，需要转换下
-        if (className != null && className.indexOf("/") != -1) {
-            className = className.replaceAll("/", ".");
-        }
+        logger.info("2 [transform className: {}, plainClassName: {},targetMethodName: {}] \n",
+                className, plainClassName, targetMethodName);
+        System.out.printf("2 [transform className: %s, plainClassName: %s,targetMethodName: %s] \n",
+                className, plainClassName, targetMethodName);
+
         try {
-            ClassPool classPool = ClassPool.getDefault();
-            CtClass mCtc = classPool.get(className);
+            logger.info("get CtClass Object 1");
+            //通过包名获取类文件
+            CtClass mCtc = ClassPool.getDefault().get(plainClassName);
+            logger.info("get ctMethod");
+            //获得指定方法名的方法
             CtMethod ctMethod = mCtc.getDeclaredMethod(targetMethodName);
-            ctMethod.insertBefore("{ System.out.println(\"berfor invoke method.........................\"); }");
-            ctMethod.insertAfter("{ System.out.println(\"after invoke method.............................\"); }");
+            //在方法执行前插入代码
+            logger.info("insert before");
+            ctMethod.insertBefore("{ logger.info(\"berfor invoke method, mark: {}.........................\", \""
+                    + this.mark + "\"" +
+                    "); }");
+            logger.info("insert after");
+            ctMethod.insertAfter("{ logger.info(\"after invoke method.............................\"); }");
 
-            String methodName = ctMethod.getName();
-            String targetMethodName = "do" + methodName;
-            ctMethod.setName(targetMethodName);
+//            String methodName = ctMethod.getName();
+//            String targetMethodName = "do" + methodName;
+//            ctMethod.setName(targetMethodName);
+//
+//            StringBuilder proxyMethodBody = new StringBuilder();
+//            proxyMethodBody.append("public ");
+//            proxyMethodBody.append(" String ");
+//            proxyMethodBody.append(methodName);
+//            proxyMethodBody.append("()");
+//            proxyMethodBody.append("{");
+//            proxyMethodBody.append(" return ");
+//            proxyMethodBody.append(targetMethodName);
+//            proxyMethodBody.append("();");
+//            proxyMethodBody.append("}");
+//            mCtc.addMethod(CtMethod.make(proxyMethodBody.toString(), mCtc));
 
-            StringBuilder proxyMethodBody = new StringBuilder();
-            proxyMethodBody.append("public ");
-            proxyMethodBody.append(" String ");
-            proxyMethodBody.append(methodName);
-            proxyMethodBody.append("()");
-            proxyMethodBody.append("{");
-            proxyMethodBody.append(" return ");
-            proxyMethodBody.append(targetMethodName);
-            proxyMethodBody.append("();");
-            proxyMethodBody.append("}");
-
-            mCtc.addMethod(CtMethod.make(proxyMethodBody.toString(), mCtc));
             return mCtc.toBytecode();
         } catch (Exception e) {
             e.printStackTrace();
+            logger.error("", e);
+        } catch (Throwable e) {
+            e.printStackTrace();
+            logger.error("", e);
+        } finally {
+            logger.info("transform end. plainClassName: {}", plainClassName);
         }
-        System.out.println("transform end. className: " + className);
         return classfileBuffer;
     }
 }

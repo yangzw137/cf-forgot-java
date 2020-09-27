@@ -1,5 +1,8 @@
 package org.cf.forgot.lib.instrument.agent.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Date;
 
 /**
@@ -7,12 +10,14 @@ import java.util.Date;
  * @date 2020/8/21
  */
 public class HelloInstrument {
+    private Logger logger = LoggerFactory.getLogger(HelloInstrument.class);
 
     public String sayHello() {
         String str = "hello instrument, " + new Date();
         try {
-            System.out.println(str);
-            int n = 1/0;
+            logger.info("-----===1 666666====--------str: {}", str);
+//            System.out.printf("-----====66666===--------str: %s \n", str);
+//            int n = 1/0;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
