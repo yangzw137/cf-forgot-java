@@ -19,15 +19,6 @@ public class MyAgent {
     private static String methodName = "sayHello";
     private static ClassFileTransformer classFileTransformer;
 
-
-//    public static void retransforClasses(Class<?> clazzes) {
-//        try {
-//            getInstrumentation().retransformClasses(clazzes);
-//        } catch (UnmodifiableClassException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     public static void agentmain(String args, Instrumentation instrumentation) {
         logger.info("agentmain start");
 
@@ -35,6 +26,7 @@ public class MyAgent {
             logger.info("className: " + className);
             List<Class> needRetransFormClasses = new LinkedList<>();
             Class[] loadedClass = instrumentation.getAllLoadedClasses();
+
             for (int i = 0; i < loadedClass.length; i++) {
                 if (loadedClass[i].getName().equals(className)) {
                     needRetransFormClasses.add(loadedClass[i]);
@@ -51,11 +43,11 @@ public class MyAgent {
     }
 
     public static void premain(String args, Instrumentation instrumentation) {
-//        logger.info("premain start");
-//        classFileTransformer = new TestTransformer(className, methodName, "************ " +
-//                "premain **************");
-//        instrumentation.addTransformer(classFileTransformer);
-//        logger.info("premain end");
+        logger.info("premain start");
+        classFileTransformer = new TestTransformer(className, methodName, "************ " +
+                "premain **************");
+        instrumentation.addTransformer(classFileTransformer);
+        logger.info("premain end");
     }
 
 }
