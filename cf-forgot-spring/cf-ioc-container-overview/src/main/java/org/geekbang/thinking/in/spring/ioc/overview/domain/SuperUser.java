@@ -24,4 +24,12 @@ public class SuperUser extends User{
                 "address='" + address + '\'' +
                 "} " + super.toString();
     }
+
+    @Override
+    public String toSampleString() {
+        return "SuperUser{" +
+                "id=" + this.getId() +
+                ", name='" + this.getName() + '\'' +
+                '}';
+    }
 }
