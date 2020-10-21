@@ -9,9 +9,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * Description:
  *
  * <p>
- * company: <a href=www.jd.com>www.jd.com</a>
- *
- * @author <a href=mailto:yangzhiwei@jd.com>cf</a>
  * @date 2020/9/13
  * @since
  */

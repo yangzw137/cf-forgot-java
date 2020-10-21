@@ -3,8 +3,6 @@ package org.geekbang.thinking.in.spring.dependency.injection;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -12,9 +10,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 /**
  * Description:
  * <p>
- * company: <a href=www.jd.com>www.jd.com</a>
- *
- * @author <a href=mailto:yangzhiwei@jd.com>cf</a>
  * @date 2020/9/28
  * @since
  */

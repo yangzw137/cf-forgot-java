@@ -12,20 +12,12 @@ SAF_PIDPATH="$BASEBIN_DIR"
 
 GC_DATE=`date +%Y-%m-%d-%H-%M`
 
-LOG_PATH="/export/Logs/saf21registry.jd.local"
+LOG_PATH="/export/Logs/saf21registry.jdd.local"
 JVM_FILE="-XX:+UseCondCardMark -XX:+UseConcMarkSweepGC -XX:+HeapDumpOnOutOfMemoryError "
 JVM_FILE="$JVM_FILE -XX:CMSWaitDuration=250"
 JVM_FILE="$JVM_FILE -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:${LOG_PATH}/gc-${GC_DATE}.log"
 JVM_FILE="$JVM_FILE -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=10M"
 JVM_FILE="$JVM_FILE -XX:HeapDumpPath=${LOG_PATH}/ -XX:ErrorFile=${LOG_PATH}/java_error-${GC_DATE}.log"
-
-# berkeleydb path
-#BDB_PATH_dev="/export/jsf/registrydb/*"
-#BDB_PATH_prod="/export/Data/saf21registry.jd.local/jsf/berkeleydb/*"
-
-# remove berkeleydb
-#rm -rf $BDB_PATH_dev
-#rm -rf $BDB_PATH_prod
 
 if [ "$1" != "" ] && [ "$2" != "" ]; then
     SAF_INSTANCE="$1"

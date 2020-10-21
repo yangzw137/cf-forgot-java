@@ -27,11 +27,11 @@ public class Intern1 {
     }
 
     static void inter0() {
-        String s1 = new String("com.jd.ssa.service.SsoService").intern();
-        String s2 = new String("com.jd.ssa.service.SsoService").intern();
-        String s3 = new String("com.jd.ssa.service.SsoService").intern();
-        final String s4 = new String("com.jd.ssa.service.SsoService");
-        final String s5 = new String("com.jd.ssa.service.SsoService");
+        String s1 = new String("com.jdd.ssa.service.SsoService").intern();
+        String s2 = new String("com.jdd.ssa.service.SsoService").intern();
+        String s3 = new String("com.jdd.ssa.service.SsoService").intern();
+        final String s4 = new String("com.jdd.ssa.service.SsoService");
+        final String s5 = new String("com.jdd.ssa.service.SsoService");
         System.out.println("s1 = s2: " + (s1 == s2));
         System.out.println("s1 = s3: " + (s1 == s3));
         System.out.println("s2 = s3: " + (s2 == s3));
