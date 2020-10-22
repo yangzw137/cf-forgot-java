@@ -11,11 +11,49 @@
 
     <artifactId>cf-forgot-jdk</artifactId>
 
+    <properties>
+        <logback.version>1.2.3</logback.version>
+        <slf4j-api.version>1.7.30</slf4j-api.version>
+        <log4j-api.version>2.13.3</log4j-api.version>
+    </properties>
     <dependencies>
         <!-- spring 依赖  -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j-api.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.cf</groupId>
+            <artifactId>cf-forgot-commons</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

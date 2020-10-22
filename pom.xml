@@ -13,6 +13,7 @@
         <module>cf-forgot-arithmetic</module>
         <module>cf-forgot-lib</module>
         <module>cf-forgot-ali-sandbox</module>
+        <module>cf-forgot-commons</module>
     </modules>
 
     <packaging>pom</packaging>
