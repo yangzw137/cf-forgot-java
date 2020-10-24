@@ -14,6 +14,8 @@
         <module>cf-forgot-lib</module>
         <module>cf-forgot-ali-sandbox</module>
         <module>cf-forgot-commons</module>
+        <module>cf-forgot-tomcat</module>
+        <module>cf-forgot-http</module>
     </modules>
 
     <packaging>pom</packaging>
