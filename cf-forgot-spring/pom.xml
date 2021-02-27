@@ -16,6 +16,7 @@
         <module>cf-spring-bean</module>
         <module>cf-dependency-lookup</module>
         <module>cf-dependency-injection</module>
+        <module>cf-dependency-source</module>
     </modules>
 
     <properties>

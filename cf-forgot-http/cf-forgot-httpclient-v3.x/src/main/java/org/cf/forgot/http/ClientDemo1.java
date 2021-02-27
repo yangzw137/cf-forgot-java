@@ -1,7 +1,9 @@
 package org.cf.forgot.http;
 
+import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;
@@ -25,37 +27,43 @@ import java.io.UnsupportedEncodingException;
  * @since todo
  */
 public class ClientDemo1 {
-    private static Logger LOG = LoggerFactory.getLogger(ClientDemo1.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(ClientDemo1.class);
+    private HttpClient client = new HttpClient();
 
     public static void main(String[] args) {
         ClientDemo1 clientDemo = new ClientDemo1();
         String uri = "http://127.0.0.1:8989/common/demo";
-        clientDemo.doPostRequestFromFile(uri);
         clientDemo.doPostRequestStringBody(uri);
+        clientDemo.doPostRequestFromFile(uri);
         clientDemo.doPostRequestNameValuePairsBody(uri);
-
     }
 
     private void doPostRequestStringBody(final String uri) {
-        HttpClient client = new HttpClient();
         PostMethod postMethod = new PostMethod(uri);
+        HttpState httpState = new HttpState();
 
-        postMethod.setRequestBody("Request body: postMethod.setRequestBody");
+        Cookie cookie = new Cookie("127.0.0.1", "cookieName1", "testcookie-1", "/", -1, false);
+        httpState.addCookie(cookie);
 
+        cookie = new Cookie("127.0.0.1:8989", "cookieName2", "testcookie-2", "/common", 100, false);
+        httpState.addCookie(cookie);
+
+        client.setState(httpState);
+
+        postMethod.setRequestBody("Request body: postMethod.setRequestBody【中文】");
         try {
             client.executeMethod(postMethod);
-            LOG.info("after execute method, responseBody: {}",
-                    new String(postMethod.getResponseBody(), postMethod.getResponseCharSet()));
+            LOGGER.info("after execute method, responseBody: {}",
+                    new String(postMethod.getResponseBody(), "UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             postMethod.releaseConnection();
         }
-        LOG.info("do task end, url: {}", uri);
+        LOGGER.info("do task end, url: {}", uri);
     }
 
     private void doPostRequestNameValuePairsBody(final String uri) {
-        HttpClient client = new HttpClient();
         PostMethod postMethod = new PostMethod(uri);
 
         NameValuePair nameValuePairName = new NameValuePair("name", "zhangsan");
@@ -67,26 +75,24 @@ public class ClientDemo1 {
         if (requestEntity instanceof ByteArrayRequestEntity) {
             byte[] bs = ((ByteArrayRequestEntity) requestEntity).getContent();
             try {
-                LOG.info("test capture entity: {}", new String(bs, postMethod.getRequestCharSet()));
+                LOGGER.info("test capture entity: {}", new String(bs, postMethod.getRequestCharSet()));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         }
         try {
             client.executeMethod(postMethod);
-            LOG.info("after execute method, responseBody: {}",
+            LOGGER.info("after execute method, responseBody: {}",
                     new String(postMethod.getResponseBody(), postMethod.getResponseCharSet()));
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             postMethod.releaseConnection();
         }
-        LOG.info("do task end, url: {}", uri);
+        LOGGER.info("do task end, url: {}", uri);
     }
 
     private void doPostRequestFromFile(String uri) {
-        HttpClient client = new HttpClient();
-
         PostMethod postMethod1 = new PostMethod(uri);
         String uri2 = "http://127.0.0.1:8989/common/demo";
         PostMethod postMethod2 = new PostMethod(uri2);
@@ -99,11 +105,11 @@ public class ClientDemo1 {
             postMethod2.setRequestEntity(postMethod1.getRequestEntity());
             //-- 1
             client.executeMethod(postMethod1);
-            LOG.info("after execute method, responseBody: {}",
+            LOGGER.info("after execute method, responseBody: {}",
                     new String(postMethod1.getResponseBody(), postMethod1.getResponseCharSet()));
             //-- 2
             client.executeMethod(postMethod2);
-            LOG.info("after execute method, responseBody: {}",
+            LOGGER.info("after execute method, responseBody: {}",
                     new String(postMethod2.getResponseBody(), postMethod2.getResponseCharSet()));
 
             RequestEntity requestEntity = postMethod1.getRequestEntity();
@@ -117,7 +123,7 @@ public class ClientDemo1 {
                 System.out.println("requestBody: " + new String(bs, postMethod1.getRequestCharSet()));
             }
             if (postMethod1.getStatusCode() == HttpStatus.SC_OK) {
-                LOG.info("after execute method, responseBody: {}",
+                LOGGER.info("after execute method, responseBody: {}",
                         new String(postMethod1.getResponseBody(), postMethod1.getResponseCharSet()));
             } else {
                 System.out.println("Unexpected failure: " + postMethod1.getStatusLine().toString());
@@ -131,7 +137,7 @@ public class ClientDemo1 {
         } finally {
             postMethod1.releaseConnection();
         }
-        LOG.info("do task end, url: {}", uri);
+        LOGGER.info("do task end, url: {}", uri);
     }
 
 }

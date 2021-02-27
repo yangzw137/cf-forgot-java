@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration>
+    <property resource="config/app.properties"/>
+    <property name="LOG_HOME" value="${log.home}" />
+    <property name="LOG_FILENAME" value="${log.filename}" />
+    <property name="LOG_FILE_SEPARATOR" value="${log.separator}" />
+    <property name="TOTAL_SIZE_CAP" value="${log.totalSizeCap}" />
+    <property name="ROOT_LEVEL" value="${log.rootLevel}" />
+
+    <!--设置日志输出为控制台-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度，%line行数，%msg：日志消息，%n是换行符-->
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{96}.%M[%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DAY_ROLL_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/${LOG_FILENAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${LOG_FILENAME}.log${LOG_FILE_SEPARATOR}%i</fileNamePattern>
+            <maxIndex>1</maxIndex>
+            <maxIndex>3</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>${TOTAL_SIZE_CAP}</maxFileSize>
+        </triggeringPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{96}.%M[%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 日志输出级别 -->
+    <root level="${ROOT_LEVEL}">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="DAY_ROLL_FILE"/>
+    </root>
+
+</configuration>

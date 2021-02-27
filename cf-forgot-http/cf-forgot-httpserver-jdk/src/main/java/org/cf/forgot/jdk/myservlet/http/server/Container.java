@@ -1,5 +1,6 @@
 package org.cf.forgot.jdk.myservlet.http.server;
 
+import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpServer;
 import org.cf.forgot.commons.NamedThreadFactory;
 import org.slf4j.Logger;
@@ -19,8 +20,6 @@ import java.util.concurrent.TimeUnit;
  * Description: todo
  * <p>
  *
- *
- *
  * @date 2020/10/23
  * @since todo
  */
@@ -37,10 +36,10 @@ public class Container {
         this.containerName = containerName;
     }
 
-    private static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(20, 20,
+    private ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(20, 20,
             6000, TimeUnit.SECONDS,
             new LinkedBlockingQueue(1000),
-            new NamedThreadFactory("traffic"),
+            new NamedThreadFactory("minihttpserver"),
             new RejectedExecutionHandler() {
                 @Override
                 public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
@@ -71,15 +70,23 @@ public class Container {
 
     public void initContainer() throws IOException {
         httpServer = HttpServer.create(new InetSocketAddress(port), 0);
-        LOGGER.info("init http server");
+        LOGGER.info("init mini http server start");
+        httpServer.setExecutor(threadPoolExecutor);
+
         for (Map.Entry<String, HttpContextDescriptor> entry : contextDescriptorMap.entrySet()) {
             HttpContextDescriptor contextDescriptor = entry.getValue();
-            httpServer.createContext(entry.getKey(), entry.getValue().getHttpHandler());
+//            HttpContext httpContext = httpServer.createContext(entry.getKey(), entry.getValue().getHttpHandler());
+            HttpContext httpContext = httpServer.createContext(entry.getKey(), entry.getValue().getResolver());
+            if (entry.getValue().getFilter() != null) {
+                httpContext.getFilters().add(entry.getValue().getFilter());
+            }
         }
+        LOGGER.info("init mini http server end");
     }
 
     public void startContainer() {
         httpServer.start();
+        LOGGER.info("mini http server has been started, bind port: {}", port);
     }
 
     public int getPort() {
@@ -90,11 +97,11 @@ public class Container {
         this.port = port;
     }
 
-    public static ThreadPoolExecutor getThreadPoolExecutor() {
+    public ThreadPoolExecutor getThreadPoolExecutor() {
         return threadPoolExecutor;
     }
 
-    public static void setThreadPoolExecutor(ThreadPoolExecutor threadPoolExecutor) {
-        Container.threadPoolExecutor = threadPoolExecutor;
+    public void setThreadPoolExecutor(ThreadPoolExecutor threadPoolExecutor) {
+        this.threadPoolExecutor = threadPoolExecutor;
     }
 }

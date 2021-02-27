@@ -17,5 +17,6 @@
         <module>cf-forgot-httpclient-v3.x</module>
         <module>cf-forgot-okhttp</module>
         <module>cf-forgot-httpserver-jdk</module>
+<!--        <module>cf-forgot-httpclient4-copy</module>-->
     </modules>
 </project>

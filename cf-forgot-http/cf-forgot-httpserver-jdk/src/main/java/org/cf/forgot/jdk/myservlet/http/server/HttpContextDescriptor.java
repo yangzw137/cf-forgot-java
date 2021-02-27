@@ -1,6 +1,9 @@
 package org.cf.forgot.jdk.myservlet.http.server;
 
+import com.sun.net.httpserver.Filter;
 import com.sun.net.httpserver.HttpHandler;
+import org.cf.forgot.jdk.myservlet.http.server.resolvers.BaseResolver;
+
 import java.util.Set;
 
 /**
@@ -14,9 +17,9 @@ import java.util.Set;
  */
 public class HttpContextDescriptor {
     private String url;
-    private String handlerClazz;
     private Set<String> supportMethods;
-    private HttpHandler httpHandler;
+    private Filter filter;
+    private BaseResolver resolver;
 
     public void addMethod(String method) {
         //todo lower/upper case
@@ -32,29 +35,27 @@ public class HttpContextDescriptor {
         return url;
     }
 
-    public void setUrl(String url) {
+    public HttpContextDescriptor setUrl(String url) {
         this.url = url;
+        return this;
     }
 
-    public String getHandlerClazz() {
-        return handlerClazz;
+    public BaseResolver getResolver() {
+        return resolver;
     }
 
-    public void setHandlerClazz(String handlerClazz) {
-        this.handlerClazz = handlerClazz;
-        try {
-            httpHandler = (HttpHandler) Class.forName(handlerClazz).newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    public HttpContextDescriptor setResolver(BaseResolver resolver) {
+        this.resolver = resolver;
+        return this;
     }
 
-    public HttpHandler getHttpHandler() {
-        return httpHandler;
+    public Filter getFilter() {
+        return filter;
+    }
+
+    public HttpContextDescriptor setFilter(Filter filter) {
+        this.filter = filter;
+        return this;
     }
 
     @Override
@@ -63,14 +64,12 @@ public class HttpContextDescriptor {
         if (o == null || getClass() != o.getClass()) return false;
         HttpContextDescriptor that = (HttpContextDescriptor) o;
         if (!(url == null ? that.url == null : url.equals(that.url))) return false;
-        if (!(handlerClazz == null ? that.handlerClazz == null : handlerClazz.equals(that.handlerClazz))) return false;
         return true;
     }
 
     @Override
     public int hashCode() {
         int result = url == null ? 0 : url.hashCode();
-        result = result * 31 + (handlerClazz == null ? 0 : handlerClazz.hashCode());
         return result;
     }
 }

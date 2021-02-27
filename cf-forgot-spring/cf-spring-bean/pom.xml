@@ -13,7 +13,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>${groupId}</groupId>
+            <groupId>org.cf</groupId>
             <artifactId>cf-ioc-container-overview</artifactId>
             <version>${version}</version>
         </dependency>
