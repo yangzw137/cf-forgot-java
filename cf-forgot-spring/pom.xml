@@ -17,6 +17,8 @@
         <module>cf-dependency-lookup</module>
         <module>cf-dependency-injection</module>
         <module>cf-dependency-source</module>
+        <module>cf-dependency-scope</module>
+        <module>cf-bean-lifecycle</module>
     </modules>
 
     <properties>
@@ -26,6 +28,10 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
         </dependency>
     </dependencies>
 </project>

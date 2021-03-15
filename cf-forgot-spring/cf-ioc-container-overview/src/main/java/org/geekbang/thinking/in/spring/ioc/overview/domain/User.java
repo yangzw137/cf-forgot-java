@@ -1,9 +1,12 @@
 package org.geekbang.thinking.in.spring.ioc.overview.domain;
 
 import org.geekbang.thinking.in.spring.ioc.overview.enums.City;
+import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.core.io.Resource;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -12,13 +15,14 @@ import java.util.List;
  * @author cf
  * @date 2020/8/15
  */
-public class User {
+public class User implements BeanNameAware {
     private Long id;
     private String name;
     private City city;
     private City[] workCities;
     private List<City> lifeCities;
     private Resource configFileLocation;
+    private transient String beanName;
 
     public Long getId() {
         return id;
@@ -118,5 +122,20 @@ public class User {
         }
         sbd.append("]");
         return sbd.toString();
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("user bean [" + beanName + "] initialization....");
+    }
+
+    @PreDestroy
+    public void destroy() {
+        System.out.println("user bean [" + beanName + "] destroing...");
+    }
+
+    @Override
+    public void setBeanName(String name) {
+        this.beanName = name;
     }
 }
