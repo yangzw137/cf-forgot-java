@@ -16,6 +16,8 @@
         <module>cf-forgot-commons</module>
         <module>cf-forgot-tomcat</module>
         <module>cf-forgot-http</module>
+        <module>cf-forgot-json</module>
+        <module>cf-common</module>
     </modules>
 
     <packaging>pom</packaging>
