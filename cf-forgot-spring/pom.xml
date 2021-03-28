@@ -19,6 +19,7 @@
         <module>cf-dependency-source</module>
         <module>cf-dependency-scope</module>
         <module>cf-bean-lifecycle</module>
+        <module>configuration-metadata</module>
     </modules>
 
     <properties>
