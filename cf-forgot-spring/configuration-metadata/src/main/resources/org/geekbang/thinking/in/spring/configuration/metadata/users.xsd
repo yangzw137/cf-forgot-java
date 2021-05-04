@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="https://cf.forgot.org/schema/users"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="https://cf.forgot.org/schema/users">
+
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    
+    <xsd:complexType name="User">
+        <xsd:attribute name="id" type="xsd:long" use="required" />
+        <xsd:attribute name="name" type="xsd:string" use="required"/>
+        <xsd:attribute name="city" type="City" />
+    </xsd:complexType>
+
+    <xsd:simpleType name="City">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="BEIJING" />
+            <xsd:enumeration value="SHANGHAI" />
+            <xsd:enumeration value="HANGZHOU" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:element name="user" type="User" />
+</xsd:schema>
