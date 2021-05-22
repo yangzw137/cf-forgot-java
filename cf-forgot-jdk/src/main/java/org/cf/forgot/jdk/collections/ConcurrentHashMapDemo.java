@@ -31,26 +31,29 @@ public class ConcurrentHashMapDemo {
         ConcurrentHashMap<String, String> map = createMap();
         while (map.size() > 0) {
             checkMap(map);
+            addMsg(map, 10);
             sleepEnough(300);
         }
     }
 
     private static void checkMap(ConcurrentHashMap<String, String> map) {
         Set<String> keySet = map.keySet();
-        for (String k : keySet) {
-            String value = map.get(k);
-            System.out.printf("key: %s, value: %s\n", k, value);
-            if (counter ++ != 20) {
-                map.remove(k);
-            }
-            if (counter == 10) {
-                map.put(1 + "", "aaaaaaaaaaaaaaaaaaaaaaaaaa");
-                map.put(2 + "", "aaaaaaaaaaaaaaaaaaaaaaaaaa");
-                map.put(3 + "", "aaaaaaaaaaaaaaaaaaaaaaaaaa");
-            }
-            map.put(randomKey(), "random");
-        }
-        System.out.println("-----------" + map);
+        while (keySet.size() > 0) {
+            for (String k : keySet) {
+                String value = map.get(k);
+//            System.out.printf("key: %s, value: %s\n", k, value);
+                if (counter++ != 20) {
+                    map.remove(k);
+                }
+                if (counter == 10) {
+                    map.put(1 + "", "aaaaaaaaaaaaaaaaaaaaaaaaaa");
+                    map.put(2 + "", "aaaaaaaaaaaaaaaaaaaaaaaaaa");
+                    map.put(3 + "", "aaaaaaaaaaaaaaaaaaaaaaaaaa");
+                }
+                map.put(randomKey(), "random");
+            }//end for
+        }//end while
+        System.out.println("-----------" + map.size());
     }
 
     private static String randomKey() {
@@ -70,6 +73,12 @@ public class ConcurrentHashMapDemo {
             TimeUnit.MILLISECONDS.sleep(time);
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void addMsg(ConcurrentHashMap<String, String> map, int counter) {
+        for (int i = 0; i < counter; i++) {
+            map.put(randomKey(), "bbbbb");
         }
     }
 }

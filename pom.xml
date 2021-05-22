@@ -18,6 +18,7 @@
         <module>cf-forgot-http</module>
         <module>cf-forgot-json</module>
         <module>cf-common</module>
+        <module>cf-forgot-netty</module>
     </modules>
 
     <packaging>pom</packaging>
