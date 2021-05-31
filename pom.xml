@@ -19,6 +19,7 @@
         <module>cf-forgot-json</module>
         <module>cf-common</module>
         <module>cf-forgot-netty</module>
+        <module>cf-forgot-basic</module>
     </modules>
 
     <packaging>pom</packaging>
